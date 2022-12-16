@@ -3,13 +3,13 @@ server:
 
 spring:
   application:
-    name: PRODUCT-SERVICE
+    name: ORDER-SERVICE
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: root
-    url: jdbc:postgresql://localhost:5432/player_service_db
+    username: internshop
+    password: internshop_passw0rd
+    url: jdbc:postgresql://internshop.cmalzj6opuhz.eu-central-1.rds.amazonaws.com:5432/hc_intern_shop
   jpa:
     show-sql: true
     generate-ddl: true
@@ -22,11 +22,26 @@ spring:
       mode: always
       continue-on-error: true
 
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+  rabbitmq:
+    host: http://127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://serviceregistryinternshophc-env.eba-323qbisy.eu-central-1.elasticbeanstalk.com/eureka/
   instance:
     hostname: localhost
+    instance-id: ${spring.application.name}:${random.uuid}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
