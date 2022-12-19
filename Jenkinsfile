@@ -10,7 +10,7 @@ pipeline {
         stage('Build Maven') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vyoubi/hc-order-service']]])
-                sh 'mvn clean install -Dmaven.test.skip=true'
+                sh 'mvn clean install'
             }
         }
         stage('Build docker image') {
